@@ -1,0 +1,3 @@
+find . \( -name  '*.aux' -o -name '*.lot' -o -name '*.lof' -o -name '*.log' -o -name '*.bbl' -o -name '*.blg' -o -name '*.gz' -o -name '*.toc' -o -name '*.dvi' \) -delete
+ctanify  -p expex-glossonly expex-glossonly.sty expex-glossonly.pdf README   expex-glossonly.tex=doc/latex/expex-glossonly testfiles/*=doc/latex/expex-glossonly/testfiles
+expex-glossonly.lua=tex/luatex/

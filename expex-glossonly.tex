@@ -1,0 +1,100 @@
+% !TEX TS-program = pdflatexmk
+\def\EPGLversion{0.5}
+\def\EPGLdate{July 31, 2016}
+\documentclass[11pt]{article}
+\title{\textbf{The \textsf{expex-glossonly} package}}
+\author{\textbf{Alan Munn}\\Department of Linguistics and Languages\\Michigan State University\\\texttt{\href{mailto:amunn@msu.edu}{amunn@msu.edu}}}
+\date{Version \EPGLversion\\\EPGLdate}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in,includefoot]{geometry}
+\usepackage{titling}
+\usepackage[utf8]{inputenc}
+\usepackage{array, booktabs, multicol, fancyhdr, xspace,tabularx}
+\usepackage{enumitem}
+\usepackage{fancyvrb,listings,url}
+\usepackage[sf,compact]{titlesec}
+\usepackage[]{he-she}
+\usepackage{gb4e}
+\usepackage[colorlinks=true]{hyperref}
+\noautomath
+
+
+\DefineShortVerb{\|}
+\newcommand*\bs{\textbackslash}
+
+\IfFileExists{luximono.sty}%
+{%
+  \usepackage[scaled]{luximono}%
+}
+{%
+  \IfFileExists{beramono.sty}%
+  {%
+    \usepackage[scaled]{beramono}%
+  }{}
+}
+
+  
+\lstset{%
+    basicstyle=\ttfamily\small,
+    commentstyle=\itshape\ttfamily\small,
+    showspaces=false,
+    showstringspaces=false,
+    breaklines=true,
+    breakautoindent=true,
+    breakindent=1em,
+    xrightmargin=2.5em,
+    captionpos=t
+    language=TeX
+}
+  
+\newcommand*{\pkg}[1]{\texttt{#1}\xspace}
+\setitemize[1]{label={}}
+\setitemize[2]{label={}}
+\setdescription{font={\normalfont}}
+\setlength{\droptitle}{-1in}
+
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{\emph{}}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\pagestyle{fancy}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\renewcommand{\abstractname}{\sffamily Abstract}
+\abstract{\noindent\begin{quote}This is an experimental package which is designed to let \pkg{gb4e} and \pkg{linguex} package users use the advanced glossing capabilities of the very powerful ExPex package.\end{quote}}
+\section{Introduction}
+The ExPex package by John Frampton provides very fine-grained control over glossing and example formatting, including unlimited gloss lines and various ways of formatting multiline glosses.  By contrast the \pkg{cgloss4e} glossing macros provided with both \pkg{gb4e} and \pkg{linguex}, although very capable at basic glossing, lack the degree of customization that is sometimes needed for more complex glossing.
+
+On the other hand, for those users who have heavily invested in using either \pkg{gb4e} or \pkg{linguex}, shifting to ExPex can be quite daunting and burdensome, especially since the basic syntax of the examples is quite different.
+
+This package is an attempt to have the best of both worlds: it allows \pkg{gb4e} and \pkg{linguex} users to keep using those packages for basic example numbering and formatting, but also allows them to use the glossing macros that ExPex provides.
+
+\section{Package usage}
+Usage of the package is simple: simply load it, and then load your favourite example numbering package. The \pkg{expex-glossonly} package must be loaded first.
+
+\begin{multicols}{2}
+\begin{lstlisting}
+\usepackage{expex-glossonly}
+\usepackage{gb4e}
+\end{lstlisting}
+\begin{lstlisting}
+\usepackage{expex-glossonly}
+\usepackage{linguex}
+\end{lstlisting}
+\end{multicols}
+
+
+
+The package checks for which example numbering package you have loaded (either \pkg{gb4e} or \pkg{linguex}) and then patches the main glossing macro in ExPex to adjust to the horizontal spacing parameters of the particular example package you loaded.
+
+It does nothing explicitly to disable incompatible commands from ExPex (specifically any commands that would introduce a numbered or lettered example, such as |\ex|, |\pex|, |\a|, etc.) so you should not use them. Some, such as |\ex| are redefined by \pkg{gb4e} and therefore the ExPex version of it will fail to work.  For this reason, you need to make sure to load the \pkg{expex-glossonly} package \emph{before} you load \pkg{gb4e} or \pkg{linguex}
+\section{Bugs}
+This is \emph{experimental} and has not been extensively tested. Use at your own risk. You're welcome to contact me with problems as they arise, however.
+\end{document}

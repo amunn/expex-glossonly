@@ -1,0 +1,48 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage{expex-glossonly}
+\usepackage{amssymb}
+\usepackage{gb4e}
+\usepackage{cgloss}
+
+
+\lingset{everygla={\leftmargin=2in}, belowglpreambleskip=-0.5ex, aboveglftskip=-0.5ex} % gloss formatting
+
+
+\begin{document}
+
+\begin{exe}
+\ex[*]{ This is a regular example.}
+\ex[*]{\label{foo}
+	\begingl
+	\glpreamble This is a preamble sentence.//
+    \gla\rightcomment{\small\checkmark X}J\'anos h\'aza//
+    \glb\rightcomment{\small\checkmark X}John house.his//
+    \glft `John's house'//
+    \endgl
+}
+\ex This is another example.
+\end{exe}
+\begin{exe}
+\ex\label{bar}
+\begin{xlist}
+\ex    \begingl
+    \gla\rightcomment{\small\checkmark X}J\'anos h\'aza//
+    \glb\rightcomment{\small\checkmark X}John house.his//
+    \glft `John's house'//
+    \endgl
+\ex    \begingl
+    \gla\rightcomment{\small\checkmark X}J\'anos h\'aza//
+    \glb\rightcomment{\small\checkmark X}John house.his//
+    \glft `John's house'//
+    \endgl
+\end{xlist}
+\ex
+\begin{xlist}
+\ex An example\setcounter{xnumi}{0}
+\ex Another example.
+\end{xlist}
+\end{exe}
+
+
+\end{document}

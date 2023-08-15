@@ -1,4 +1,6 @@
-expex-glossonly is a package which allows gb4e and linguex users to use the glossing macros
+# The `expex-glossonly` package
+
+`expex-glossonly` is a package which allows `gb4e` and `linguex` users to use the glossing macros
 of the ExPex package, while still using the standard example and subexample numbering macros of
 those respective packages.
 

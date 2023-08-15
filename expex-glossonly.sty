@@ -1,5 +1,5 @@
-\def\EPGL@version{0.5}
-\def\EPGL@date{2016/07/30}
+\def\EPGL@version{0.6}
+\def\EPGL@date{2023/08/15}
 % expex-glossonly is a package which allows gb4e and linguex users to use the glossing macros
 % of the ExPex package, while still using the standard example and subexample numbering macros of
 % those respective packages.
@@ -31,24 +31,28 @@
 % First define a command to patch the ExPex main gloss command
 % Need to find out if other gloss commands need to be patched.
 \def\EPGL@patchexpexgloss{%
-\def\glw@begingl@a{%
+  \let\xe\relax
+  \let\pex\relax
+\def\gl@wrap@below@begin@a{%
    \bgroup
    \parindent0pt
    \ep@setglstrut
    \ifdim\ling@glwidth=0pt
-      \ifling@glossbreaking
+      \ifling@glbreaking
          \bgroup
        \else
          \vtop\bgroup
             \advance\hsize by -\leftskip
             \advance\hsize by -\rightskip
-            \EPGL@setglossmargin % This is the replaced command
+            %\leftskip=0pt
+            \EPGL@setglossmargin % this is the changed line
        \fi
    \else
       \vtop\bgroup
          \hsize=\ling@glwidth
          \leftskip=0pt
    \fi
+   \leavevmode
    \bgroup
    \parindent=0pt
    \@glpreamblefalse
@@ -58,8 +62,8 @@
    \let\aboveskiplist=\empty
    \let\strutlist=\empty
    \let\everylist=\empty
+   \let\colorlist=\empty
 }}
-% Possible addition: disable incompatible ExPex commands (for later)
 % First check to see whether we are loaded first
 % Since there is some overlap in commands, gb4e and linguex must be loaded second
 \@ifpackageloaded{linguex}{\PackageError{expex-glossonly}{Please load expex-glossonly BEFORE linguex}{Please load expex-glossonly BEFORE linguex}}{}

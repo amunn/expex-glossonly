@@ -1,10 +1,10 @@
-\def\EPGL@version{0.6}
-\def\EPGL@date{2023/08/15}
+\def\EPGL@version{0.7}
+\def\EPGL@date{2023/08/17}
 % expex-glossonly is a package which allows gb4e and linguex users to use the glossing macros
 % of the ExPex package, while still using the standard example and subexample numbering macros of
 % those respective packages.
 %
-% Copyright 2016 by Alan Munn
+% Copyright 2016-2023 by Alan Munn
 %
 % This package may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -23,13 +23,15 @@
 %
 % This package is currently experimental. Use at your own risk.
 %
-\ProvidesPackage{expex-glossonly}[\EPGL@date\ Compatibility package for using ExPex glosses with gb4e and linguex v. \EPGL@version ]
-\DeclareOption*{\PackageWarning{expex-glossonly}{Unknown option `\CurrentOption`}}
-\ProcessOptions
+\ProvidesPackage{expex-glossonly}[\EPGL@date\ Compatibility package for using ExPex glosses with other example packages v. \EPGL@version ]
 \RequirePackage{calc}
 \RequirePackage{expex}
-% First define a command to patch the ExPex main gloss command
-% Need to find out if other gloss commands need to be patched.
+\newif\ifEPGL@examplesloaded
+\@ifpackageloaded{linguex}{\PackageError{expex-glossonly}{Please load linguex using the package option!}{Please load linguex using the package option!}}{}
+\@ifpackageloaded{gb4e}{\PackageError{expex-glossonly}{Please load gb4e using the package option!}{Please load gb4e using the package option!}}{}
+\@ifpackageloaded{covington}{\PackageError{expex-glossonly}{Please load covington using the package option!}{Please load covington using the package option!}}{}
+% for now this is a separate macro in case it needs to be changed per package.
+\newcommand\EPGL@setglossmargin{\setlength{\leftskip}{\@totalleftmargin}}
 \def\EPGL@patchexpexgloss{%
   \let\xe\relax
   \let\pex\relax
@@ -64,34 +66,48 @@
    \let\everylist=\empty
    \let\colorlist=\empty
 }}
-% First check to see whether we are loaded first
-% Since there is some overlap in commands, gb4e and linguex must be loaded second
-\@ifpackageloaded{linguex}{\PackageError{expex-glossonly}{Please load expex-glossonly BEFORE linguex}{Please load expex-glossonly BEFORE linguex}}{}
-\@ifpackageloaded{gb4e}{\PackageError{expex-glossonly}{Please load expex-glossonly BEFORE gb4e}{Please load expex-glossonly BEFORE gb4e}}{}
-% Now only patch the command if the packages have been loaded
-% This means that the package will do no harm if loaded by itself
-\AtBeginDocument{%
-\@ifpackageloaded{linguex}{
-  \def\EPGL@setglossmargin{%
-	\ifnum\theExDepth=1%
-         \setlength{\leftskip}{\Exindent+\Exlabelsep+\Exlabelwidth+.5em}
-     \else
-         \setlength{\leftskip}{\Exindent+\Exlabelsep+\Exlabelwidth+\SubExleftmargin+.5em}
-     \fi}
-  \EPGL@patchexpexgloss
-  \PackageInfo{expex-glossonly}{Patching ExPex for use with linguex}
-  \typeout{Patching ExPex for use with linguex}  
+\DeclareKeys[expex-glossonly]
+{
+gb4e.code = {
+	\RequirePackage{gb4e}
+	\EPGL@examplesloadedtrue
+	\EPGL@patchexpexgloss
+	\lingset{belowglpreambleskip=-0.5ex, aboveglftskip=-0.5ex,everygla=\eachwordone}
+	\PackageInfo{expex-glossonly}{Patching ExPex for use with gb4e}
+	\typeout{Patching ExPex for use with gb4e}
+  },
+gb4e-emulate.code = {
+	\RequirePackage{gb4e-emulate}
+	\EPGL@examplesloadedtrue
+    \EPGL@patchexpexgloss
+    \lingset{belowglpreambleskip=-0.5ex, aboveglftskip=-0.5ex,everygla=\eachwordone}
+    \PackageInfo{expex-glossonly}{Patching ExPex for use with gb4e}
+    \typeout{Patching ExPex for use with gb4e}
+},
+linguex.code = {
+	\RequirePackage{linguex}
+	\EPGL@examplesloadedtrue
+    \EPGL@patchexpexgloss
+    \lingset{belowglpreambleskip=-0.5ex, aboveglftskip=-0.5ex,everygla=\eachwordone}
+    \PackageInfo{expex-glossonly}{Patching ExPex for use with linguex}
+    \typeout{Patching ExPex for use with linguex}
+},
+covington.code = {
+	\PassOptionsToPackage{covington}{#1}
+	\let\ex\relax
+	\RequirePackage{covington}
+	\EPGL@examplesloadedtrue
+	\EPGL@patchexpexgloss
+	\newcommand*{\EPGL@glosslineone}{%
+       \@ifundefined{glosslineone@global}{\glosslineone}{\glosslineone@global}}
+	\lingset{belowglpreambleskip=-0.5ex, aboveglftskip=-0.5ex,everygla=\EPGL@glosslineone}
+	\PackageInfo{expex-glossonly}{Patching ExPex for use with covington}
+    \typeout{Patching ExPex for use with covington}
 }
-{\@ifpackageloaded{gb4e}{
-  \def\EPGL@setglossmargin{%
-   \ifnum\@xnumdepth=1%
-      \setlength{\leftskip}{\leftmargin+\widthof{\@exwidth}+1em}
-   \else
-      \setlength{\leftskip}{\leftmargin+\labelwidth+\labelsep+1.5em}
-    \fi}
-  \EPGL@patchexpexgloss
-  \PackageInfo{expex-glossonly}{Patching ExPex for use with gb4e}
-  \typeout{Patching ExPex for use with gb4e}
-}{}}
 }
+\DeclareUnknownKeyHandler[expex-glossonly]{\PackageError{expex-glossonly}{Please specify which example package you are using as a package option!}{Please specify which example package you are using as a package option!}}
+
+\ProcessKeyOptions[expex-glossonly]
+\ifEPGL@examplesloaded\else\PackageWarning{expex-glossonly}{No example package specified! Assuming ExPex}\fi
+
 \endinput

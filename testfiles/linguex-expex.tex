@@ -1,18 +1,40 @@
-\documentclass[12pt,letterpaper]{article}
+% !TEX TS-program = LuaLaTeX
 
+\documentclass[12pt,letterpaper]{article}
 \usepackage[linguex]{expex-glossonly}
 
 \begin{document}
+% Examples here show with and without grammaticality judgements.
+% Also a mixture of ExPex and linguex glossing in the same example set.
 
 \ex.
-\a.
+\a. *
 	\begingl
-    \gla\rightcomment{(Hungarian)}J\'anos h\'aza//
+    \gla J\'anos h\'aza//
     \glb John house.his//
     \glft `John's house'//
     \endgl
 \bg. János háza\\
      John house.his\\
-     \glt `John's house'
+    `John's house'
+     
+\ex. ?*
+	\begingl
+    \gla\rightcomment{(Hungarian)}J\'anos h\'aza//
+    \glb John house.his//
+    \glft `John's house'//
+    \endgl
+
+\ex.
+\a. 
+	\begingl
+    \gla J\'anos h\'aza//
+    \glb John house.his//
+    \glft `John's house'//
+    \endgl
+\bg. János háza\\
+     John house.his\\
+      `John's house'
+
 
 \end{document}

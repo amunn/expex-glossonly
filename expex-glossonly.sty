@@ -1,8 +1,8 @@
-\def\EPGL@version{0.7}
-\def\EPGL@date{2023/08/17}
-% expex-glossonly is a package which allows gb4e and linguex users to use the glossing macros
-% of the ExPex package, while still using the standard example and subexample numbering macros of
-% those respective packages.
+\def\EPGL@version{0.8}
+\def\EPGL@date{2023/11/15}
+% expex-glossonly is a package which allows gb4e and linguex and covington users to use
+% the glossing macros  of the ExPex package, while still using the standard example and
+% subexample numbering macros of those respective packages.
 %
 % Copyright 2016-2023 by Alan Munn
 %
@@ -19,7 +19,8 @@
 % The Current Maintainer of this package is Alan Munn.
 %
 % This package consists of the file expex-glossonly.sty and documentation files
-% expex-glossonly.tex and expex-glossonly.pdf plus two test files: gb4e-expex.tex and linguex-expex.tex
+% expex-glossonly.tex and expex-glossonly.pdf plus three test files:
+% gb4e-expex.tex, linguex-expex.tex, and covington-expex.tex
 %
 % This package is currently experimental. Use at your own risk.
 %
@@ -30,7 +31,7 @@
 \@ifpackageloaded{linguex}{\PackageError{expex-glossonly}{Please load linguex using the package option!}{Please load linguex using the package option!}}{}
 \@ifpackageloaded{gb4e}{\PackageError{expex-glossonly}{Please load gb4e using the package option!}{Please load gb4e using the package option!}}{}
 \@ifpackageloaded{covington}{\PackageError{expex-glossonly}{Please load covington using the package option!}{Please load covington using the package option!}}{}
-% for now this is a separate macro in case it needs to be changed per package.
+% This is a separate macro because it needs to be changed per package.
 \newcommand\EPGL@setglossmargin{\setlength{\leftskip}{\@totalleftmargin}}
 \def\EPGL@patchexpexgloss{%
   \let\xe\relax
@@ -88,6 +89,7 @@ linguex.code = {
 	\RequirePackage{linguex}
 	\EPGL@examplesloadedtrue
     \EPGL@patchexpexgloss
+    \def\printGramm{\makebox[0pt][r]{\normalfont\the\CollectTokens}\renewcommand\EPGL@setglossmargin{\setlength{\leftskip}{0pt}}\ignorespaces}
     \lingset{belowglpreambleskip=-0.5ex, aboveglftskip=-0.5ex,everygla=\eachwordone}
     \PackageInfo{expex-glossonly}{Patching ExPex for use with linguex}
     \typeout{Patching ExPex for use with linguex}

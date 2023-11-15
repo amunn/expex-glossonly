@@ -1,6 +1,6 @@
 # The `expex-glossonly` package
 
-## Version 0.7 2023/08/17
+## Version 0.8 2023/11/15
 
 `expex-glossonly` is a package which allows users of other popular example numbering package (`gb4e`, `linguex`, and `covington`) to use the glossing macros
 of the ExPex package, while still using the standard example and subexample numbering macros of those respective packages.

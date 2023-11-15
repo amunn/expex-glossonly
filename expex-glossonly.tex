@@ -1,11 +1,13 @@
 % !TEX TS-program = lualatexmk
-\def\EPGLversion{0.7}
-\def\EPGLdate{August 17, 2023}
+\def\EPGLversion{0.8}
+\def\EPGLdate{November 15, 2023}
 \documentclass[11pt]{article}
 \title{\textbf{The \textsf{expex-glossonly} package}}
-\author{\textbf{Alan Munn}\\Department of Linguistics and Languages\\Michigan State University\\\texttt{\href{mailto:amunn@msu.edu}{amunn@msu.edu}}}
+\author{\textbf{Alan Munn}\\Department of Linguistics, Languages, and Cultures\\Michigan State University\\\texttt{\href{mailto:amunn@msu.edu}{amunn@msu.edu}}}
 \date{Version \EPGLversion\\\EPGLdate}
 \usepackage[margin=1in,includefoot]{geometry}
+\usepackage{fontspec}
+\setmonofont[Scale=MatchLowercase]{DejaVu Sans Mono}
 \usepackage{titling}
 \usepackage{array, booktabs, multicol, fancyhdr, xspace,tabularx}
 \usepackage{enumitem}
@@ -17,21 +19,11 @@
 \DefineShortVerb{\|}
 \newcommand*\bs{\textbackslash}
 
-\IfFileExists{luximono.sty}%
-{%
-  \usepackage[scaled]{luximono}%
-}
-{%
-  \IfFileExists{beramono.sty}%
-  {%
-    \usepackage[scaled]{beramono}%
-  }{}
-}
-
   
 \lstset{%
     basicstyle=\ttfamily\small,
     commentstyle=\itshape\ttfamily\small,
+    keywordstyle={},
     showspaces=false,
     showstringspaces=false,
     breaklines=true,
@@ -73,7 +65,7 @@ On the other hand, for those users who have heavily invested in using \pkg{gb4e}
 This package is an attempt to have the best of both worlds: it allows \pkg{gb4e}, \pkg{linguex}, or \pkg{covington} users to keep using those packages for basic example numbering and formatting, but also allows them to use the glossing macros that ExPex provides.
 
 \section{Package usage}
-Usage of the package is simple: simply load it instead of your usual example numbering package, and specify as a package option which numbering package you're using. So for example. Four example numbering packages are currently supported: \pkg{gb4e}, \pkg{linguex}, \pkg{covington}, and \pkg{gb4e-emulate}. The latter is an experimental reimplementation of \pkg{gb4e} using \pkg{enumitem} and is not currently released to CTAN, but available on GitHub.  Package options for loading \pkg{covington} can be given by adding them to the |covington| package option. Since they are an argument of the |covington| key, the set of options must be enclosed in |{...}|.
+Usage of the package is simple: simply load it instead of your usual example numbering package, and specify as a package option which numbering package you're using. So for example. Four example numbering packages are currently supported: \pkg{gb4e}, \pkg{linguex}, \pkg{covington}, and \pkg{gb4e-emulate}. The latter is an experimental reimplementation of \pkg{gb4e} using \pkg{enumitem} and is not currently released to CTAN, but available on \href{https://github.com/amunn/gb4e-emulate}{GitHub}.  Package options for loading \pkg{covington} can be given by adding them to the |covington| package option. Since they are an argument of the |covington| key, the set of options must be enclosed in |{...}|.
 
 \begin{table}
 \centering
@@ -152,7 +144,7 @@ Here are some sample documents using the supported packages:
     \endgl
 \bg. János háza\\
      John house.his\\
-     \glt `John's house'
+    `John's house'
 
 \end{document}
 \end{lstlisting}
@@ -189,7 +181,7 @@ Here are some sample documents using the supported packages:
 \section{Bugs and support}
 This is \emph{experimental} and has not been extensively tested. Use at your own risk. You're welcome to raise issues at the \href{https://github.com/amunn/expex-glossonly}{GitHub repository}, however.
 \section{Version history}
-The initial version of the package (0.6) supported only \pkg{linguex} and \pkg{gb4e}. Version 0.7 changed the loading interface to provide support for \pkg{covington} and added support for \pkg{gb4e-emulate}.
+The initial version of the package (0.6) supported only \pkg{linguex} and \pkg{gb4e}. Version 0.7 changed the loading interface to provide support for \pkg{covington} and added support for \pkg{gb4e-emulate}. Version 0.8 fixed fixed a spacing bug with grammaticality judgements in \pkg{linguex}.
 \section{Acknowledgements}
 As always, thanks to the members of the LaTeX development team and other users who are always happy to answer questions in the \href{https://tex.stackexchange.com}{TeX.se} chat room. Thanks especially to Ulrike Fischer who told me of the magical |\@totalleftmargin| length.  Thanks also to Jürgen Spitzmüller for discussion of the \pkg{covington} support.
 \end{document}

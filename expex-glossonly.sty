@@ -90,6 +90,8 @@ linguex.code = {
 	\EPGL@examplesloadedtrue
     \EPGL@patchexpexgloss
     \def\printGramm{\makebox[0pt][r]{\normalfont\the\CollectTokens}\renewcommand\EPGL@setglossmargin{\setlength{\leftskip}{0pt}}\ignorespaces}
+    \def\newb.{\renewcommand\EPGL@setglossmargin{\setlength{\leftskip}{\@totalleftmargin}}\ifindex\firstwordtrue\fi
+        \my@ifnextchar[{\newExitem}{\item\testforgramm}}
     \lingset{belowglpreambleskip=-0.5ex, aboveglftskip=-0.5ex,everygla=\eachwordone}
     \PackageInfo{expex-glossonly}{Patching ExPex for use with linguex}
     \typeout{Patching ExPex for use with linguex}
